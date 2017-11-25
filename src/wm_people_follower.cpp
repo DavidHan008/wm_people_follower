@@ -44,7 +44,7 @@ namespace wm
 		{
 			try
 			{
-				tfStamped_ = tfBuffer_.lookupTransform("odom", "base_link", ros::Time(0));
+				tfStamped_ = tfBuffer_.lookupTransform("map", "base_link", ros::Time(0));
 			}
 			catch (tf2::TransformException &e)
 			{
@@ -255,11 +255,11 @@ namespace wm
 
 				try
 				{
-					tfStamped_ = tfBuffer_.lookupTransform("odom", "base_link", ros::Time(0));
+					tfStamped_ = tfBuffer_.lookupTransform("map", "base_link", ros::Time(0));
 					geometry_msgs::PoseStamped outputMsg;
 					geometry_msgs::PoseStamped testMsg;
 
-					outputMsg.header.frame_id = "odom";
+					outputMsg.header.frame_id = "map";
 					outputMsg.header.stamp = ros::Time::now();
 
 					// followed person's position in base_link frame
@@ -290,7 +290,7 @@ namespace wm
 						outputMsg.pose.position.y = (distance - followDistance_) * sin(yaw) + tfStamped_.transform.translation.y;
 					}
 
-					testMsg.header.frame_id = "odom";
+					testMsg.header.frame_id = "map";
 					testMsg.header.stamp = ros::Time::now();
 					testMsg.pose.position.x = dx;
 					testMsg.pose.position.y = dy;
